@@ -24,14 +24,14 @@ public class AccountService {
         final String cardFromCvv = transferRequest.getCardFromCVV();
         final YearMonth cardFromValidTill = transferRequest.getCardFromValidTill();
         return accountRepository.getByCardNumber(cardFromNumber)
-                .filter(account -> account.getAccountType() == AccountType.INTERNAL
-                        && account.getCvv().equals(cardFromCvv)
-                        && account.getValidThruTill().equals(cardFromValidTill));
+                .filter(account -> AccountType.INTERNAL == account.getAccountType()
+                        && cardFromCvv.equals(account.getCvv())
+                        && cardFromValidTill.equals(account.getValidThruTill()));
     }
 
     public Account getReceiverAccount(String cardToNumber) {
         return accountRepository.getByCardNumber(cardToNumber)
-                .orElse(addNewExternalAccount(cardToNumber));
+                .orElseGet(() -> addNewExternalAccount(cardToNumber));
     }
 
     public Account addNewInternalAccount(String cardNumber, String cvv, YearMonth validThruTill, BigDecimal balance) {
