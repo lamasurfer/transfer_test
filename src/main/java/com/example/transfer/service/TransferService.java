@@ -55,7 +55,7 @@ public class TransferService {
         final Transaction transaction = transactionService.getById(confirmationRequest.getOperationId())
                 .orElseThrow(() -> new TransactionException(messages.getMessage("transaction.not.found")));
 
-        if (!verificationService.verifyTransaction(transaction)) {
+        if (!verificationService.verifyTransaction(transaction, confirmationRequest)) {
             throw new TransactionException(messages.getMessage("invalid.transaction.code"));
         }
 

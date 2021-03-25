@@ -14,7 +14,11 @@ public class Account {
     public Account() {
     }
 
-    public Account(String cardNumber, AccountType accountType, String cvv, YearMonth validThruTill, BigDecimal balance) {
+    public Account(String cardNumber,
+                   AccountType accountType,
+                   String cvv,
+                   YearMonth validThruTill,
+                   BigDecimal balance) {
         this.cardNumber = cardNumber;
         this.accountType = accountType;
         this.cvv = cvv;

@@ -1,5 +1,7 @@
 package com.example.transfer.model.response;
 
+import java.util.Objects;
+
 public class ErrorMessage {
 
     private String message;
@@ -31,6 +33,19 @@ public class ErrorMessage {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ErrorMessage that = (ErrorMessage) o;
+        return id == that.id && Objects.equals(message, that.message);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(message, id);
     }
 
     @Override

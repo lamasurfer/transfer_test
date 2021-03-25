@@ -19,7 +19,11 @@ public class TransferRequest {
     public TransferRequest() {
     }
 
-    public TransferRequest(String cardFromNumber, YearMonth cardFromValidTill, String cardFromCVV, String cardToNumber, Amount amount) {
+    public TransferRequest(String cardFromNumber,
+                           YearMonth cardFromValidTill,
+                           String cardFromCVV,
+                           String cardToNumber,
+                           Amount amount) {
         this.cardFromNumber = cardFromNumber;
         this.cardFromValidTill = cardFromValidTill;
         this.cardFromCVV = cardFromCVV;
@@ -72,7 +76,11 @@ public class TransferRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TransferRequest that = (TransferRequest) o;
-        return Objects.equals(cardFromNumber, that.cardFromNumber) && Objects.equals(cardFromValidTill, that.cardFromValidTill) && Objects.equals(cardFromCVV, that.cardFromCVV) && Objects.equals(cardToNumber, that.cardToNumber) && Objects.equals(amount, that.amount);
+        return Objects.equals(cardFromNumber, that.cardFromNumber)
+                && Objects.equals(cardFromValidTill, that.cardFromValidTill)
+                && Objects.equals(cardFromCVV, that.cardFromCVV)
+                && Objects.equals(cardToNumber, that.cardToNumber)
+                && Objects.equals(amount, that.amount);
     }
 
     @Override

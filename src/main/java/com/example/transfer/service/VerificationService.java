@@ -1,5 +1,6 @@
 package com.example.transfer.service;
 
+import com.example.transfer.model.request.ConfirmationRequest;
 import com.example.transfer.model.transaction.Transaction;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ public class VerificationService {
         return transaction.getVerificationCode();
     }
 
-    public boolean verifyTransaction(Transaction transaction) {
-        return VERIFICATION_CODE.equals(transaction.getVerificationCode());
+    public boolean verifyTransaction(Transaction transaction, ConfirmationRequest confirmationRequest) {
+        return transaction.getVerificationCode().equals(confirmationRequest.getCode());
     }
 }

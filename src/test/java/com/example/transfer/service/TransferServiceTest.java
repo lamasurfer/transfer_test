@@ -114,7 +114,7 @@ class TransferServiceTest {
         transaction.setVerificationCode(code);
 
         when(transactionService.getById(operationId)).thenReturn(Optional.of(transaction));
-        when(verificationService.verifyTransaction(transaction)).thenReturn(true);
+        when(verificationService.verifyTransaction(transaction, confirmationRequest)).thenReturn(true);
 
         assertEquals(ResponseEntity.ok().body(new SuccessMessage(operationId)).toString(),
                 transferService.confirmOperation(confirmationRequest).toString());
@@ -143,7 +143,7 @@ class TransferServiceTest {
         transaction.setVerificationCode(code);
 
         when(transactionService.getById(operationId)).thenReturn(Optional.of(transaction));
-        when(verificationService.verifyTransaction(transaction)).thenReturn(false);
+        when(verificationService.verifyTransaction(transaction, confirmationRequest)).thenReturn(false);
 
         assertThrows(TransactionException.class, () -> transferService.confirmOperation(confirmationRequest));
     }
