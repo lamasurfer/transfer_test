@@ -54,11 +54,15 @@ public class TransactionService {
         final Account accountFrom = transaction.getAccountFrom();
         final Account accountTo = transaction.getAccountTo();
         final BigDecimal totalAmount = transaction.getTotalAmount();
-        if (accountTo.getAccountType() == AccountType.INTERNAL) {
-            final BigDecimal amount = transaction.getAmount();
-            accountTo.setBalance(accountTo.getBalance().add(amount));
+        synchronized (accountFrom) {
+            synchronized (accountTo) {
+                if (accountTo.getAccountType() == AccountType.INTERNAL) {
+                    final BigDecimal amount = transaction.getAmount();
+                    accountTo.setBalance(accountTo.getBalance().add(amount));
+                }
+                accountFrom.setBalance(accountFrom.getBalance().subtract(totalAmount));
+            }
         }
-        accountFrom.setBalance(accountFrom.getBalance().subtract(totalAmount));
         transaction.setTransactionStatus(TransactionStatus.PROCESSED);
         transaction.setProcessedTime(LocalDateTime.now());
         return transaction;
